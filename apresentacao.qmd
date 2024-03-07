@@ -370,7 +370,7 @@ $$Y=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_1X_2+\epsilon$$
 
 ::: extrapad
 
--   No R, para considerar um modelo com interação podemos utlizar os seguintes comandos:
+-   No R, para considerar um modelo com interação podemos utilizar os seguintes comandos:
 ```{r}
 #| label: intera1
 #| echo: true
@@ -396,7 +396,7 @@ modelo4<- lm(preco ~ .^2, data=dados)
 ::: extrapad
 -   Dentre todas as variáveis do conjunto de dados, quais são as que interferem significativamente em `preco`?
 
--   Para determinar tais variáveis utilizamos o comando `stepAIC()`.
+-   Para determinar tais variáveis utilizamos o comando `backward()`.
 
 -   O argumento que devemos utilizar nesta função seria o modelo ajustado com todas as variáveis e/ou todas as interações.
 
