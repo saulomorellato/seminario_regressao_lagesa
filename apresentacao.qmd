@@ -414,3 +414,5 @@ melhor_modelo<- backward(modelo4, alpha=0.1)
 summary(melhor_modelo)
 ```
 
+
+# Agora vamos praticar!
