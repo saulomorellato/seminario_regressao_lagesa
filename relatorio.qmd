@@ -1,0 +1,157 @@
+---
+title: "Regressão Linear no RStudio"
+author: "Saulo Morellato"
+format: pdf
+editor: visual
+---
+
+
+# Introdução
+
+## Objetivo Geral
+
+Estabelecer uma função que descreva a relação entre uma variável contínua $Y$ (variável resposta) e uma ou mais variáveis de apoio $X_1, X_2,\dots, X_p$ (covariáveis) na forma $$Y=f(X_1,X_2,\ldots,X_p)+\epsilon$$ sendo $\epsilon$ um erro aleatório.
+
+## Erro Aleatório
+
+Possíveis explicações para a presença do erro aleatório no modelo são:
+
+-   Caráter vago da teoria;
+
+-   Falta de dados disponíveis;
+
+-   Caráter aleatório da natureza;
+
+-   Escolha equivocada para a forma funcional.
+
+
+
+# Regressão Linear
+
+## Objetivo
+
+-   Na Análise de Regressão Linear o objetivo é identificar uma equação linear que permita descrever o comportamento da variável resposta $Y$ utilizando valores conhecidos das covariáveis $X1,X2,\ldots,Xp$.
+
+-   Ou seja, considera-se que a função $f(\cdot)$ tenha uma forma linear.
+
+
+
+
+## Regressão Linear Simples
+
+Temos apenas uma covariável no modelo. Um exemplo seria tentar modelar o quanto as despesas com propaganda inflenciam nas vendas de um determinado produto.
+
+-   Variável resposta: *vendas*
+
+-   Covariável: *gasto com propagandas*
+
+
+
+
+## Regressão Linear Múltipla
+
+Temos apenas duas ou mais covariáveis no modelo. Um exemplo seria tentar modelar o quanto as características de um imóvel influenciam no preço de venda do mesmo.
+
+-   Variável resposta: *preço do imóvel*
+
+-   Covariáveis: *área, no de quartos, no de banheiros, idade,...*
+
+
+
+
+# Modelo Matemático
+
+## Descrição do Modelo
+
+-   A forma funcional é linear;
+
+-   Considera-se apenas uma covariável;
+
+-   Desse modo, temos
+$$Y=\beta_0+\beta_1X+\epsilon$$
+
+-   $\beta_0$ e $\beta_1$ são valores desconhecidos (parâmetros) da reta que relaciona $X$ e $Y$;
+
+-   $\beta_0$ é chamado de intercepto; e
+
+-   $\beta_1$ é o coeficiente angular.
+
+
+
+## Exemplo
+
+![](dados_pio.png){width=80%}
+
+
+
+## Exemplo (continuação)
+
+![](graf_pio.png){width=80%}
+
+
+
+
+# Aplicação em R
+
+## Carregando Pacotes
+
+-   Para exemplificar a estimação de um modelo de Regressão Linear em R vamos utilizar conjunto de dados `dados_imoveis.csv`.
+
+-   Para isso primeiramente vamos carregar os pacotes necessários.
+
+```{r}
+#| label: pacotes
+#| echo: true
+#| warning: false
+
+library(tidyverse)  # para organizar os dados
+library(gtsummary)  # para organizar resultados em tabela
+library(mixlm)      # para selecao de variaveis (stepwise)
+```
+
+```{css}
+code.sourceCode {
+  font-size: 1.5em;
+  /* or try font-size: xx-large; */
+}
+```
+
+
+
+## Carregando e Manipulando Dados
+
+-   Carregue o arquivo `dados_imoveis.csv` utilizando o comando `read.csv()`.
+```{r}
+#| label: dados
+#| echo: true
+
+dados<- read.csv("dados_imoveis.csv", header=TRUE)
+```
+
+-   Dê uma olhada superficial na estrutura dos dados usando o comando `glimpse()`.
+```{r}
+#| label: view
+#| echo: true
+#| output: false
+
+glimpse(dados)
+```
+
+-   Transforme a variável `piscina` em fator, em seguida Verifique as estatísticas descritivas utlizando o comando `summary()`.
+```{r}
+#| label: view2
+#| echo: true
+#| output: false
+
+dados$piscina<- as.factor(dados$piscina)
+summary(dados)
+```
+
+
+```{css}
+code.sourceCode {
+  font-size: 1.5em;
+  /* or try font-size: xx-large; */
+}
+```
+
