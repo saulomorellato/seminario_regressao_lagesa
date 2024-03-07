@@ -497,7 +497,8 @@ Saulo Morellato
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(tidyverse)  <span class="co"># para organizar os dados</span></span>
-<span id="cb1-2"><a href=""></a><span class="fu">library</span>(gtsummary)  <span class="co"># para organizar resultados em tabela</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href=""></a><span class="fu">library</span>(gtsummary)  <span class="co"># para organizar resultados em tabela</span></span>
+<span id="cb1-3"><a href=""></a><span class="fu">library</span>(mixlm)      <span class="co"># para selecao de variaveis (stepwise)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <style type="text/css">
@@ -616,18 +617,19 @@ Residuals:
 -23897 -12990  -2961  10454  43914 
 
 Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)   
-(Intercept)  30427.2    19232.3   1.582  0.13448   
-area           268.7      141.6   1.898  0.07716 . 
-idade         -631.1      485.6  -1.300  0.21330   
-quartos      21647.1     5721.1   3.784  0.00180 **
-piscinasim   38880.2    12788.4   3.040  0.00827 **
+             Estimate Std. Error t value Pr(&gt;|t|)   
+(Intercept)   49867.3    19127.2   2.607  0.01982 * 
+area            268.7      141.6   1.898  0.07716 . 
+idade          -631.1      485.6  -1.300  0.21330   
+quartos       21647.1     5721.1   3.784  0.00180 **
+piscina(sim) -19440.1     6394.2  -3.040  0.00827 **
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 19060 on 15 degrees of freedom
-Multiple R-squared:  0.9114,    Adjusted R-squared:  0.8878 
-F-statistic: 38.59 on 4 and 15 DF,  p-value: 9.971e-08</code></pre>
+s: 19060 on 15 degrees of freedom
+Multiple R-squared: 0.9114,
+Adjusted R-squared: 0.8878 
+F-statistic: 38.59 on 4 and 15 DF,  p-value: 9.971e-08 </code></pre>
 </div>
 </div>
 </div>
@@ -642,23 +644,23 @@ F-statistic: 38.59 on 4 and 15 DF,  p-value: 9.971e-08</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="fu">tbl_regression</span>(modelo2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="vvkmoetqqq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#vvkmoetqqq table {
+<div id="ecfdktxufh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ecfdktxufh table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#vvkmoetqqq thead, #vvkmoetqqq tbody, #vvkmoetqqq tfoot, #vvkmoetqqq tr, #vvkmoetqqq td, #vvkmoetqqq th {
+#ecfdktxufh thead, #ecfdktxufh tbody, #ecfdktxufh tfoot, #ecfdktxufh tr, #ecfdktxufh td, #ecfdktxufh th {
   border-style: none;
 }
 
-#vvkmoetqqq p {
+#ecfdktxufh p {
   margin: 0;
   padding: 0;
 }
 
-#vvkmoetqqq .gt_table {
+#ecfdktxufh .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -684,12 +686,12 @@ F-statistic: 38.59 on 4 and 15 DF,  p-value: 9.971e-08</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#vvkmoetqqq .gt_caption {
+#ecfdktxufh .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#vvkmoetqqq .gt_title {
+#ecfdktxufh .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -701,7 +703,7 @@ F-statistic: 38.59 on 4 and 15 DF,  p-value: 9.971e-08</code></pre>
   border-bottom-width: 0;
 }
 
-#vvkmoetqqq .gt_subtitle {
+#ecfdktxufh .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -713,7 +715,7 @@ F-statistic: 38.59 on 4 and 15 DF,  p-value: 9.971e-08</code></pre>
   border-top-width: 0;
 }
 
-#vvkmoetqqq .gt_heading {
+#ecfdktxufh .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -725,13 +727,13 @@ F-statistic: 38.59 on 4 and 15 DF,  p-value: 9.971e-08</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vvkmoetqqq .gt_bottom_border {
+#ecfdktxufh .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vvkmoetqqq .gt_col_headings {
+#ecfdktxufh .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -746,7 +748,7 @@ F-statistic: 38.59 on 4 and 15 DF,  p-value: 9.971e-08</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vvkmoetqqq .gt_col_heading {
+#ecfdktxufh .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -766,7 +768,7 @@ F-statistic: 38.59 on 4 and 15 DF,  p-value: 9.971e-08</code></pre>
   overflow-x: hidden;
 }
 
-#vvkmoetqqq .gt_column_spanner_outer {
+#ecfdktxufh .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -778,15 +780,15 @@ F-statistic: 38.59 on 4 and 15 DF,  p-value: 9.971e-08</code></pre>
   padding-right: 4px;
 }
 
-#vvkmoetqqq .gt_column_spanner_outer:first-child {
+#ecfdktxufh .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vvkmoetqqq .gt_column_spanner_outer:last-child {
+#ecfdktxufh .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vvkmoetqqq .gt_column_spanner {
+#ecfdktxufh .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -798,11 +800,11 @@ F-statistic: 38.59 on 4 and 15 DF,  p-value: 9.971e-08</code></pre>
   width: 100%;
 }
 
-#vvkmoetqqq .gt_spanner_row {
+#ecfdktxufh .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#vvkmoetqqq .gt_group_heading {
+#ecfdktxufh .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -828,7 +830,7 @@ F-statistic: 38.59 on 4 and 15 DF,  p-value: 9.971e-08</code></pre>
   text-align: left;
 }
 
-#vvkmoetqqq .gt_empty_group_heading {
+#ecfdktxufh .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -843,15 +845,15 @@ F-statistic: 38.59 on 4 and 15 DF,  p-value: 9.971e-08</code></pre>
   vertical-align: middle;
 }
 
-#vvkmoetqqq .gt_from_md > :first-child {
+#ecfdktxufh .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vvkmoetqqq .gt_from_md > :last-child {
+#ecfdktxufh .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vvkmoetqqq .gt_row {
+#ecfdktxufh .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -870,7 +872,7 @@ F-statistic: 38.59 on 4 and 15 DF,  p-value: 9.971e-08</code></pre>
   overflow-x: hidden;
 }
 
-#vvkmoetqqq .gt_stub {
+#ecfdktxufh .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -883,7 +885,7 @@ F-statistic: 38.59 on 4 and 15 DF,  p-value: 9.971e-08</code></pre>
   padding-right: 5px;
 }
 
-#vvkmoetqqq .gt_stub_row_group {
+#ecfdktxufh .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -897,15 +899,15 @@ F-statistic: 38.59 on 4 and 15 DF,  p-value: 9.971e-08</code></pre>
   vertical-align: top;
 }
 
-#vvkmoetqqq .gt_row_group_first td {
+#ecfdktxufh .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#vvkmoetqqq .gt_row_group_first th {
+#ecfdktxufh .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#vvkmoetqqq .gt_summary_row {
+#ecfdktxufh .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -915,16 +917,16 @@ F-statistic: 38.59 on 4 and 15 DF,  p-value: 9.971e-08</code></pre>
   padding-right: 5px;
 }
 
-#vvkmoetqqq .gt_first_summary_row {
+#ecfdktxufh .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#vvkmoetqqq .gt_first_summary_row.thick {
+#ecfdktxufh .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#vvkmoetqqq .gt_last_summary_row {
+#ecfdktxufh .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -934,7 +936,7 @@ F-statistic: 38.59 on 4 and 15 DF,  p-value: 9.971e-08</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#vvkmoetqqq .gt_grand_summary_row {
+#ecfdktxufh .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -944,7 +946,7 @@ F-statistic: 38.59 on 4 and 15 DF,  p-value: 9.971e-08</code></pre>
   padding-right: 5px;
 }
 
-#vvkmoetqqq .gt_first_grand_summary_row {
+#ecfdktxufh .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -954,7 +956,7 @@ F-statistic: 38.59 on 4 and 15 DF,  p-value: 9.971e-08</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#vvkmoetqqq .gt_last_grand_summary_row_top {
+#ecfdktxufh .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -964,11 +966,11 @@ F-statistic: 38.59 on 4 and 15 DF,  p-value: 9.971e-08</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#vvkmoetqqq .gt_striped {
+#ecfdktxufh .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vvkmoetqqq .gt_table_body {
+#ecfdktxufh .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -977,7 +979,7 @@ F-statistic: 38.59 on 4 and 15 DF,  p-value: 9.971e-08</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#vvkmoetqqq .gt_footnotes {
+#ecfdktxufh .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -991,7 +993,7 @@ F-statistic: 38.59 on 4 and 15 DF,  p-value: 9.971e-08</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vvkmoetqqq .gt_footnote {
+#ecfdktxufh .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1000,7 +1002,7 @@ F-statistic: 38.59 on 4 and 15 DF,  p-value: 9.971e-08</code></pre>
   padding-right: 5px;
 }
 
-#vvkmoetqqq .gt_sourcenotes {
+#ecfdktxufh .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1014,7 +1016,7 @@ F-statistic: 38.59 on 4 and 15 DF,  p-value: 9.971e-08</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vvkmoetqqq .gt_sourcenote {
+#ecfdktxufh .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1022,74 +1024,68 @@ F-statistic: 38.59 on 4 and 15 DF,  p-value: 9.971e-08</code></pre>
   padding-right: 5px;
 }
 
-#vvkmoetqqq .gt_left {
+#ecfdktxufh .gt_left {
   text-align: left;
 }
 
-#vvkmoetqqq .gt_center {
+#ecfdktxufh .gt_center {
   text-align: center;
 }
 
-#vvkmoetqqq .gt_right {
+#ecfdktxufh .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vvkmoetqqq .gt_font_normal {
+#ecfdktxufh .gt_font_normal {
   font-weight: normal;
 }
 
-#vvkmoetqqq .gt_font_bold {
+#ecfdktxufh .gt_font_bold {
   font-weight: bold;
 }
 
-#vvkmoetqqq .gt_font_italic {
+#ecfdktxufh .gt_font_italic {
   font-style: italic;
 }
 
-#vvkmoetqqq .gt_super {
+#ecfdktxufh .gt_super {
   font-size: 65%;
 }
 
-#vvkmoetqqq .gt_footnote_marks {
+#ecfdktxufh .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#vvkmoetqqq .gt_asterisk {
+#ecfdktxufh .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#vvkmoetqqq .gt_indent_1 {
+#ecfdktxufh .gt_indent_1 {
   text-indent: 5px;
 }
 
-#vvkmoetqqq .gt_indent_2 {
+#ecfdktxufh .gt_indent_2 {
   text-indent: 10px;
 }
 
-#vvkmoetqqq .gt_indent_3 {
+#ecfdktxufh .gt_indent_3 {
   text-indent: 15px;
 }
 
-#vvkmoetqqq .gt_indent_4 {
+#ecfdktxufh .gt_indent_4 {
   text-indent: 20px;
 }
 
-#vvkmoetqqq .gt_indent_5 {
+#ecfdktxufh .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
 
 <table class="gt_table" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
 <thead>
 <tr class="header gt_col_headings">
 <th id="<strong>Characteristic</strong>" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"><strong>Characteristic</strong></th>
@@ -1117,30 +1113,8 @@ F-statistic: 38.59 on 4 and 15 DF,  p-value: 9.971e-08</code></pre>
 <td class="gt_row gt_center" headers="ci">9,453, 33,841</td>
 <td class="gt_row gt_center" headers="p.value">0.002</td>
 </tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="label">piscina</td>
-<td class="gt_row gt_center" headers="estimate"><br>
-</td>
-<td class="gt_row gt_center" headers="ci"><br>
-</td>
-<td class="gt_row gt_center" headers="p.value"><br>
-</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;nao</td>
-<td class="gt_row gt_center" headers="estimate">—</td>
-<td class="gt_row gt_center" headers="ci">—</td>
-<td class="gt_row gt_center" headers="p.value"><br>
-</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;sim</td>
-<td class="gt_row gt_center" headers="estimate">38,880</td>
-<td class="gt_row gt_center" headers="ci">11,622, 66,138</td>
-<td class="gt_row gt_center" headers="p.value">0.008</td>
-</tr>
 </tbody><tfoot class="gt_footnotes">
-<tr class="odd">
+<tr class="even">
 <td colspan="4" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span> CI = Confidence Interval</td>
 </tr>
 </tfoot>
@@ -1202,6 +1176,47 @@ code.sourceCode {
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a><span class="fu">predict</span>(modelo2, <span class="at">newdata=</span>novos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="modelos-com-interação" class="slide level2">
+<h2>Modelos com Interação</h2>
+<div class="extrapad">
+<ul>
+<li><p>Em um modelo de regressão o <span class="math inline">\(Y\)</span> pode depender linearmente de <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span> e do produto <span class="math inline">\(X_1X_2\)</span>.</p></li>
+<li><p>Desse modo, temos o modelo <span class="math display">\[Y=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_1X_2+\epsilon\]</span></p></li>
+</ul>
+</div>
+</section>
+<section id="modelos-com-interação-no-r" class="slide level2">
+<h2>Modelos com Interação no R</h2>
+<div class="extrapad">
+<ul>
+<li>No R, para considerar um modelo com interação podemos utlizar os seguintes comandos:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a>modelo3<span class="ot">&lt;-</span> <span class="fu">lm</span>(preco <span class="sc">~</span> area <span class="sc">+</span> idade <span class="sc">+</span> area<span class="sc">:</span>idade, <span class="at">data=</span>dados)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Caso eu queira considerar todas as interações possíveis das minha covariáveis devo utlizar o seguinte comando:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a>modelo4<span class="ot">&lt;-</span> <span class="fu">lm</span>(preco <span class="sc">~</span> .<span class="sc">^</span><span class="dv">2</span>, <span class="at">data=</span>dados)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="seleção-de-variáveis" class="slide level2">
+<h2>Seleção de Variáveis</h2>
+<div class="extrapad">
+<ul>
+<li><p>Dentre todas as variáveis do conjunto de dados, quais são as que interferem significativamente em <code>preco</code>?</p></li>
+<li><p>Para determinar tais variáveis utilizamos o comando <code>stepAIC()</code>.</p></li>
+<li><p>O argumento que devemos utilizar nesta função seria o modelo ajustado com todas as variáveis e/ou todas as interações.</p></li>
+<li><p>As variáveis que não são estatísticamente significativas são removidas do modelo.</p></li>
+</ul>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a>melhor_modelo<span class="ot">&lt;-</span> <span class="fu">backward</span>(modelo4, <span class="at">alpha=</span><span class="fl">0.1</span>)</span>
+<span id="cb14-2"><a href=""></a><span class="fu">summary</span>(melhor_modelo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
