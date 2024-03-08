@@ -47,7 +47,7 @@ Possíveis explicações para a presença do erro aleatório no modelo são:
 ## Objetivo
 
 ::: extrapad
--   Na Análise de Regressão Linear o objetivo é identificar uma equação linear que permita descrever o comportamento da variável resposta $Y$ utilizando valores conhecidos das covariáveis $X1,X2,\ldots,Xp$.
+-   Na Análise de Regressão Linear o objetivo é identificar uma equação linear que permita descrever o comportamento da variável resposta $Y$ utilizando valores conhecidos das covariáveis $X_1,X_2,\ldots,X_p$.
 
 -   Ou seja, considera-se que a função $f(\cdot)$ tenha uma forma linear.
 :::

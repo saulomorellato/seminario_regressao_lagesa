@@ -30,7 +30,7 @@ Possíveis explicações para a presença do erro aleatório no modelo são:
 
 ## Objetivo
 
--   Na Análise de Regressão Linear o objetivo é identificar uma equação linear que permita descrever o comportamento da variável resposta $Y$ utilizando valores conhecidos das covariáveis $X1,X2,\ldots,Xp$.
+-   Na Análise de Regressão Linear o objetivo é identificar uma equação linear que permita descrever o comportamento da variável resposta $Y$ utilizando valores conhecidos das covariáveis $X_1,X_2,\ldots,X_p$.
 
 -   Ou seja, considera-se que a função $f(\cdot)$ tenha uma forma linear.
 
@@ -59,8 +59,6 @@ Temos apenas duas ou mais covariáveis no modelo. Um exemplo seria tentar modela
 
 
 
-# Modelo Matemático
-
 ## Descrição do Modelo
 
 -   A forma funcional é linear;
@@ -78,15 +76,15 @@ $$Y=\beta_0+\beta_1X+\epsilon$$
 
 
 
-## Exemplo
-
-![](dados_pio.png){width=80%}
 
 
+![](dados_pio.png){width=90%}
 
-## Exemplo (continuação)
 
-![](graf_pio.png){width=80%}
+
+## Gráfico do modelo
+
+![](graf_pio.png){width=90%}
 
 
 
@@ -109,12 +107,6 @@ library(gtsummary)  # para organizar resultados em tabela
 library(mixlm)      # para selecao de variaveis (stepwise)
 ```
 
-```{css}
-code.sourceCode {
-  font-size: 1.5em;
-  /* or try font-size: xx-large; */
-}
-```
 
 
 
@@ -132,7 +124,6 @@ dados<- read.csv("dados_imoveis.csv", header=TRUE)
 ```{r}
 #| label: view
 #| echo: true
-#| output: false
 
 glimpse(dados)
 ```
@@ -141,17 +132,187 @@ glimpse(dados)
 ```{r}
 #| label: view2
 #| echo: true
-#| output: false
 
 dados$piscina<- as.factor(dados$piscina)
 summary(dados)
 ```
 
 
-```{css}
-code.sourceCode {
-  font-size: 1.5em;
-  /* or try font-size: xx-large; */
-}
+
+
+## Ajustando a Regressão Linear
+
+-   Para ajustar/estimar um modelo de Regressão Linear devemos utilizar o comando `lm()`, ao qual devemos fornecer as seguintes informações: fórmula e dados.
+
+-   Neste primero modelo consideremos que a variável `preco` dependa apenas de `area`.
+
+```{r}
+#| label: lm1
+#| echo: true
+
+modelo1<- lm(preco ~ area, data=dados)
 ```
+
+
+
+
+## Modelo 2
+
+-   Caso eu queira considerar um segundo modelo no qual `preco` dependa de todas as demais variável do conjunto de dados devemos utilizar os seguintes comandos:
+
+```{r}
+#| label: lm2
+#| echo: true
+
+modelo2<- lm(preco ~ area + idade + quartos + piscina, data=dados)
+#modelo2<- lm(preco ~ . , data=dados)    # comando alternativo
+```
+
+
+
+
+
+## Visualizando os Modelos
+
+-   A função `summary()` pode ser utilizada para visualizarmos um resumo do modelo estimado em forma de tabela.
+
+-   Deve-se observar que este comando apresenta os resultados de uma forma um pouco poluída, porém bem completa.
+
+-   Apliquemos este comando para o `modelo2`.
+
+
+
+
+## Visualização - `summary()`
+
+```{r}
+#| echo: true
+
+summary(modelo2)
+```
+
+
+
+
+
+## Visualização - `tbl_regression()`
+
+-   Para uma visualização mais interpretável dos resultados, podemos utilizar o comando `tbl_regression()`
+
+```{r}
+#| message: false
+#| warning: false
+#| echo: true
+
+tbl_regression(modelo2)
+```
+
+
+
+
+
+## Interpretação
+
+-   Se a covariável é numérica, o acréscimo de 1 unidade nesta covariável espera-se um acréscimo de $\beta$ unidades na variável resposta.
+
+-   Se a covariável é categórica, o fato de pertencer a certa classe espera-se um acréscimo de $\beta$ unidades na variável resposta.
+
+-   O aumento de 1 unidade em `area` implica, em média, num acréscimo de 268.7 unidades monerátias no `preco`.
+
+-   O aumento de 1 unidade em `idade` implica, em média, num decréscimo de 631.1 unidades monerátias no `preco`.
+
+-   O aumento de 1 unidade em `quarto` implica, em média, num acréscimo de 21647.1 unidades monerátias no `preco`.
+
+-   O fato do imóvel possuir piscina implica, em média, num acréscimo de 38880.2 unidades monerátias no `preco`.
+
+
+
+
+
+## Modelos com Interação
+
+-   Em um modelo de regressão o $Y$ pode depender linearmente de $X_1$, $X_2$ e do produto $X_1X_2$.
+
+-   Desse modo, temos o modelo
+$$Y=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_1X_2+\epsilon$$
+
+-   No R, para considerar um modelo com interação podemos utilizar os seguintes comandos:
+```{r}
+#| label: intera1
+#| echo: true
+
+modelo3<- lm(preco ~ area + idade + area:idade, data=dados)
+```
+
+-   Caso eu queira considerar todas as interações possíveis das minha covariáveis devo utlizar o seguinte comando:
+```{r}
+#| label: intera2
+#| echo: true
+
+modelo4<- lm(preco ~ .^2, data=dados)
+```
+
+
+
+
+
+## Seleção de Variáveis
+
+-   Dentre todas as variáveis do conjunto de dados, quais são as que interferem significativamente em `preco`?
+
+-   Para determinar tais variáveis utilizamos o comando `backward()`.
+
+-   O argumento que devemos utilizar nesta função seria o modelo ajustado com todas as variáveis e/ou todas as interações.
+
+-   As variáveis que não são estatísticamente significativas são removidas do modelo.
+
+```{r}
+#| label: step
+#| echo: true
+#| warning: false
+#| message: false
+
+melhor_modelo<- backward(modelo4, alpha=0.1)
+tbl_regression(melhor_modelo)
+```
+
+
+
+
+
+
+## Predição
+
+-   Suponha que 2 imóveis estão para ser vendidos.
+
+-   Suponha ainda não haver preço de venda para estes 2 imóveis.
+
+-   Utilize a características destes, juntamente com o modelo estimado, para estimar seus preços.
+
+-   Carregue o arquivo `novos_imoveis.csv` utilizando o comando `read.csv()`.
+```{r}
+#| label: dados_new
+#| echo: true
+
+novos<- read.csv("novos_imoveis.csv", header=TRUE)
+```
+
+-   Faça a predição/estimação de preço para estes 2 imóveis utilizando o comando `predict()`.
+
+```{r}
+#| label: pred
+#| echo: true
+
+preditos<- predict(modelo2, newdata=novos)
+```
+
+-   Para uma melhor visualização vamos concatenar as informações dos novos imóveis com suas respectivas predições/estimações de preço.
+
+```{r}
+#| label: pred_view
+#| echo: true
+
+cbind.data.frame(novos, preditos)
+```
+
 
