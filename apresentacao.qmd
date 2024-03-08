@@ -291,11 +291,14 @@ code.sourceCode {
 
 ## Interpretação - Parte 1
 
-
 ::: extrapad
+
 -   Se a covariável é numérica, o acréscimo de 1 unidade nesta covariável espera-se um acréscimo de $\beta$ unidades na variável resposta.
 
 -   Se a covariável é categórica, o fato de pertencer a certa classe espera-se um acréscimo de $\beta$ unidades na variável resposta.
+
+-   **OBS**: Este tipo de interpretação só é possível para modelos sem interações entre as covariáveis.
+
 :::
 
 
@@ -317,40 +320,6 @@ code.sourceCode {
 
 
 
-## Predição - Parte 1
-
-::: extrapad
-
--   Suponha que 2 imóveis estão para ser vendidos.
-
--   Suponha ainda não haver preço de venda para estes 2 imóveis.
-
--   Utilize a características destes, juntamente com o modelo estimado, para estimar seus preços.
-
-:::
-
-
-
-
-## Predição - Parte 2
-
--   Carregue o arquivo `novos_imoveis.csv` utilizando o comando `read.csv()`.
-```{r}
-#| label: dados_new
-#| echo: true
-
-novos<- read.csv("novos_imoveis.csv", header=TRUE)
-```
-
-
--   Faça a predição/estimação de preço para estes 2 imóveis utilizando o comando `predict()`.
-```{r}
-#| label: pred
-#| echo: true
-#| output: false
-
-predict(modelo2, newdata=novos)
-```
 
 
 ## Modelos com Interação
@@ -413,6 +382,52 @@ modelo4<- lm(preco ~ .^2, data=dados)
 melhor_modelo<- backward(modelo4, alpha=0.1)
 summary(melhor_modelo)
 ```
+
+
+## Predição - Parte 1
+
+::: extrapad
+
+-   Suponha que 2 imóveis estão para ser vendidos.
+
+-   Suponha ainda não haver preço de venda para estes 2 imóveis.
+
+-   Utilize a características destes, juntamente com o modelo estimado, para estimar seus preços.
+
+:::
+
+
+
+
+## Predição - Parte 2
+
+-   Carregue o arquivo `novos_imoveis.csv` utilizando o comando `read.csv()`.
+```{r}
+#| label: dados_new
+#| echo: true
+
+novos<- read.csv("novos_imoveis.csv", header=TRUE)
+```
+
+
+-   Faça a predição/estimação de preço para estes 2 imóveis utilizando o comando `predict()`.
+```{r}
+#| label: pred
+#| echo: true
+#| output: false
+
+preditos<- predict(melhor_modelo, newdata=novos)
+```
+
+-   Para uma melhor visualização vamos concatenar as informações dos novos imóveis com suas respectivas predições/estimações de preço.
+
+```{r}
+#| label: pred_view
+#| echo: true
+
+cbind.data.frame(novos, preditos)
+```
+
 
 
 # Agora vamos praticar!
