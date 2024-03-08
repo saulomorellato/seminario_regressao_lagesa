@@ -5,7 +5,6 @@ format: pdf
 editor: visual
 ---
 
-
 # Introdução
 
 ## Objetivo Geral
@@ -24,8 +23,6 @@ Possíveis explicações para a presença do erro aleatório no modelo são:
 
 -   Escolha equivocada para a forma funcional.
 
-
-
 # Regressão Linear
 
 ## Objetivo
@@ -33,9 +30,6 @@ Possíveis explicações para a presença do erro aleatório no modelo são:
 -   Na Análise de Regressão Linear o objetivo é identificar uma equação linear que permita descrever o comportamento da variável resposta $Y$ utilizando valores conhecidos das covariáveis $X_1,X_2,\ldots,X_p$.
 
 -   Ou seja, considera-se que a função $f(\cdot)$ tenha uma forma linear.
-
-
-
 
 ## Regressão Linear Simples
 
@@ -45,9 +39,6 @@ Temos apenas uma covariável no modelo. Um exemplo seria tentar modelar o quanto
 
 -   Covariável: *gasto com propagandas*
 
-
-
-
 ## Regressão Linear Múltipla
 
 Temos apenas duas ou mais covariáveis no modelo. Um exemplo seria tentar modelar o quanto as características de um imóvel influenciam no preço de venda do mesmo.
@@ -56,17 +47,13 @@ Temos apenas duas ou mais covariáveis no modelo. Um exemplo seria tentar modela
 
 -   Covariáveis: *área, no de quartos, no de banheiros, idade,...*
 
-
-
-
 ## Descrição do Modelo
 
 -   A forma funcional é linear;
 
 -   Considera-se apenas uma covariável;
 
--   Desse modo, temos
-$$Y=\beta_0+\beta_1X+\epsilon$$
+-   Desse modo, temos $$Y=\beta_0+\beta_1X+\epsilon$$
 
 -   $\beta_0$ e $\beta_1$ são valores desconhecidos (parâmetros) da reta que relaciona $X$ e $Y$;
 
@@ -74,20 +61,11 @@ $$Y=\beta_0+\beta_1X+\epsilon$$
 
 -   $\beta_1$ é o coeficiente angular.
 
-
-
-
-
-![](dados_pio.png){width=90%}
-
-
+![](dados_pio.png){width="90%"}
 
 ## Gráfico do modelo
 
-![](graf_pio.png){width=90%}
-
-
-
+![](graf_pio.png){width="90%"}
 
 # Aplicação em R
 
@@ -107,12 +85,10 @@ library(gtsummary)  # para organizar resultados em tabela
 library(mixlm)      # para selecao de variaveis (stepwise)
 ```
 
-
-
-
 ## Carregando e Manipulando Dados
 
 -   Carregue o arquivo `dados_imoveis.csv` utilizando o comando `read.csv()`.
+
 ```{r}
 #| label: dados
 #| echo: true
@@ -121,6 +97,7 @@ dados<- read.csv("dados_imoveis.csv", header=TRUE)
 ```
 
 -   Dê uma olhada superficial na estrutura dos dados usando o comando `glimpse()`.
+
 ```{r}
 #| label: view
 #| echo: true
@@ -129,6 +106,7 @@ glimpse(dados)
 ```
 
 -   Transforme a variável `piscina` em fator, em seguida Verifique as estatísticas descritivas utlizando o comando `summary()`.
+
 ```{r}
 #| label: view2
 #| echo: true
@@ -136,9 +114,6 @@ glimpse(dados)
 dados$piscina<- as.factor(dados$piscina)
 summary(dados)
 ```
-
-
-
 
 ## Ajustando a Regressão Linear
 
@@ -153,9 +128,6 @@ summary(dados)
 modelo1<- lm(preco ~ area, data=dados)
 ```
 
-
-
-
 ## Modelo 2
 
 -   Caso eu queira considerar um segundo modelo no qual `preco` dependa de todas as demais variável do conjunto de dados devemos utilizar os seguintes comandos:
@@ -168,10 +140,6 @@ modelo2<- lm(preco ~ area + idade + quartos + piscina, data=dados)
 #modelo2<- lm(preco ~ . , data=dados)    # comando alternativo
 ```
 
-
-
-
-
 ## Visualizando os Modelos
 
 -   A função `summary()` pode ser utilizada para visualizarmos um resumo do modelo estimado em forma de tabela.
@@ -180,9 +148,6 @@ modelo2<- lm(preco ~ area + idade + quartos + piscina, data=dados)
 
 -   Apliquemos este comando para o `modelo2`.
 
-
-
-
 ## Visualização - `summary()`
 
 ```{r}
@@ -190,10 +155,6 @@ modelo2<- lm(preco ~ area + idade + quartos + piscina, data=dados)
 
 summary(modelo2)
 ```
-
-
-
-
 
 ## Visualização - `tbl_regression()`
 
@@ -206,10 +167,6 @@ summary(modelo2)
 
 tbl_regression(modelo2)
 ```
-
-
-
-
 
 ## Interpretação
 
@@ -225,6 +182,7 @@ tbl_regression(modelo2)
 
 -   O fato do imóvel possuir piscina implica, em média, num acréscimo de 38880.2 unidades monerátias no `preco`.
 
+-   **OBS**: Este tipo de interpretação só é possível para modelos sem interações entre as covariáveis.
 
 
 
@@ -233,10 +191,10 @@ tbl_regression(modelo2)
 
 -   Em um modelo de regressão o $Y$ pode depender linearmente de $X_1$, $X_2$ e do produto $X_1X_2$.
 
--   Desse modo, temos o modelo
-$$Y=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_1X_2+\epsilon$$
+-   Desse modo, temos o modelo $$Y=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_1X_2+\epsilon$$
 
 -   No R, para considerar um modelo com interação podemos utilizar os seguintes comandos:
+
 ```{r}
 #| label: intera1
 #| echo: true
@@ -245,16 +203,13 @@ modelo3<- lm(preco ~ area + idade + area:idade, data=dados)
 ```
 
 -   Caso eu queira considerar todas as interações possíveis das minha covariáveis devo utlizar o seguinte comando:
+
 ```{r}
 #| label: intera2
 #| echo: true
 
 modelo4<- lm(preco ~ .^2, data=dados)
 ```
-
-
-
-
 
 ## Seleção de Variáveis
 
@@ -276,11 +231,6 @@ melhor_modelo<- backward(modelo4, alpha=0.1)
 tbl_regression(melhor_modelo)
 ```
 
-
-
-
-
-
 ## Predição
 
 -   Suponha que 2 imóveis estão para ser vendidos.
@@ -290,6 +240,7 @@ tbl_regression(melhor_modelo)
 -   Utilize a características destes, juntamente com o modelo estimado, para estimar seus preços.
 
 -   Carregue o arquivo `novos_imoveis.csv` utilizando o comando `read.csv()`.
+
 ```{r}
 #| label: dados_new
 #| echo: true
@@ -314,5 +265,3 @@ preditos<- predict(modelo2, newdata=novos)
 
 cbind.data.frame(novos, preditos)
 ```
-
-
